@@ -3,6 +3,7 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const bodyParse = require("body-parser");
+const cors = require("cors");
 const env = require("dotenv").config();  // dotenv file is created to define constant
 const LoginAPIRoutes = require("./router/LoginAPIRoutes");
 
