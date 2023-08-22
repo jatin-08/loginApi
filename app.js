@@ -10,9 +10,6 @@ const LoginAPIRoutes = require("./router/LoginAPIRoutes");
 
 app.use(bodyParse.json()) // it help to interpret the data in the body of an HTTP request.
 
-app.use(cors());
-
-
 const corsOptions = {
     origin: 'http://3.16.152.50:8000/api/users/',
     methods: 'GET,PUT,POST,DELETE',
