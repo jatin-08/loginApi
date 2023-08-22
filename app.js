@@ -10,6 +10,16 @@ const LoginAPIRoutes = require("./router/LoginAPIRoutes");
 
 app.use(bodyParse.json()) // it help to interpret the data in the body of an HTTP request.
 
+app.use(cors());
+
+
+const corsOptions = {
+    origin: 'http://3.16.152.50:8000/api/users/',
+    methods: 'GET,PUT,POST,DELETE',
+    optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 // Connection establish
 
@@ -30,6 +40,8 @@ app.listen(port, () => {
     console.log(`Server is running on the port ${port}`);
 })
 
-// Default Route work as a middleware   
+// Default Route work as a middleware
+
+app.options('*', cors());
 
 app.use("/api/users", LoginAPIRoutes)
