@@ -42,7 +42,7 @@ exports.specificDetails = async (req, res) => {
 
 exports.signup = async (req, res) => {
     try {
-        const { firstname, lastname, userEmail, userPassword } = req.body;
+        const { firstname, lastname, userEmail, userPassword, contactNumber } = req.body;
         // console.log(req.body);
         let seqid;
         const seq = await counter.findOneAndUpdate(
@@ -58,10 +58,13 @@ exports.signup = async (req, res) => {
             seqid = seq.seqId;
         }
         console.log(seqid);
-        if (!firstname || !userEmail || !userPassword) {
+        if (!firstname || !userEmail || !userPassword || !contactNumber) {
             return res.status(400).json({ error: "All fields are required to fill!" });
         }
-
+        const existingMail = await user.findOne({ userEmail });
+        if (existingMail) {
+            return res.status(400).json({ error: 'Email already exists' });
+        }
         const newUser = new user({
             ...req.body,
             usersId: seqid,

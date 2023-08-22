@@ -23,6 +23,10 @@ const LoginAPISchema = new mongoose.Schema({
         type: String,
         required: [true, "Please Enter Your Password"],
     },
+    contactNumber:{
+        type: String,
+        required:true
+    }
 }, {
     timestamps: true
 }
