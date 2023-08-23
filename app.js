@@ -16,7 +16,7 @@ app.use(bodyParse.json()) // it help to interpret the data in the body of an HTT
 // ];
 
 const corsOptions = {
-    origin: 'http://3.16.152.50:8000/api/users',
+    origin: 'http://127.0.0.1:5500',
     methods: ['GET','PUT','POST','DELETE'],
     optionsSuccessStatus: 200,
     allowedHeaders:['Content-Type']
