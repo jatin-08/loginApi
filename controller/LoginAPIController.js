@@ -1,3 +1,5 @@
+const asyncHandler = require("express-async-handler");
+
 const jwt = require("jsonwebtoken");
 
 const bcrypt = require("bcrypt");
@@ -24,19 +26,17 @@ exports.getAllDetails = async (req, res) => {
 
 // Find the specfic user
 
-exports.specificDetails = async (req, res) => {
-    try {
-        const specificdata = await user.findOne({ usersId: req.params.id });
-        if (!specificdata) {
-            res.status(404).json({ error: "User Not found" });
-        } else {
-            res.json({ data: specificdata, statusbar: "success" });
-        }
-
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+exports.specificDetails = asyncHandler(async (req, res) => {
+    const specificdata = await user.findOne({ usersId: req.params.id });
+    console.log(specificdata);
+    if (!specificdata) {
+        res.status(404).json({ error: "User Not found" });
+    } else {
+        res.json({ data: specificdata, statusbar: "success" });
+        // console.log(res.headers);
     }
-};
+
+});
 
 // function for creating a single user or document
 
@@ -82,6 +82,7 @@ exports.login = async (req, res) => {
     try {
         const { userEmail, userPassword } = req.body;
         const userexist = await user.findOne({ userEmail });
+        // console.log(userexist);
         if (!userexist) {
             return res.status(404).json({ error: "email or password is invalid!" })
         }
@@ -90,8 +91,9 @@ exports.login = async (req, res) => {
             return res.status(404).json({ error: "email or password is invalid!" })
         }
         const token = jwt.sign({ usersId: userexist.usersId }, process.env.SECRET_KEY, { expiresIn: "1h" });
-        res.cookie("token", token, { httpOnly: true, maxAge: 360000 });
-        res.status(200).json({ success: "login Successfully", token: token});
+        // res.cookie("token", token, { httpOnly: true, maxAge: 360000 });
+        res.status(200).json({ success: "login Successfully", token: token });
+        // console.log(JSON.stringify(req.headers));
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

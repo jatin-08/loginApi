@@ -1,17 +1,29 @@
+const asyncHandler = require("express-async-handler");
+
 const jwt = require("jsonwebtoken");
 
 const loginModel = require("../model/LoginAPI");
 
-module.exports = (req, res, next) => {
-    const token = req.cookies.token;
-    if (!token) {
-        return res.status(404).json({ error: "Authentication is required!" });
+module.exports = asyncHandler(async (req, res, next) => {
+    let token = req.headers['x-access-token'] || req.headers['authorization'];
+    // console.log(authHeader);
+    token = token.replace(/^Bearer\s+/, "");
+
+    if (token) {
+        jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
+            if (err) {
+                return res.json({
+                    success: false,
+                    message: 'Token is not valid'
+                });
+            }
+            req.decoded = decoded;
+            next();
+        });
+    } else {
+        return res.json({
+            success: false,
+            message: 'Token not provided'
+        });
     }
-    try {
-        const verifytoken = jwt.verify(token, process.env.SECRET_KEY);
-        res.usersId = verifytoken.usersId;
-        next();
-    } catch (error) {
-        res.status(500).json({ error: "Invalid User!" });
-    }
-}
+});

@@ -20,7 +20,7 @@ router.get("/logout", authmiddleware, userController.logout);
 
 // Route for getting all the user
 
-router.get("/", authmiddleware, userController.getAllDetails);
+router.get("/", authmiddleware,userController.getAllDetails);
 
 // Route for getting specific data
 
