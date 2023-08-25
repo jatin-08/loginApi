@@ -8,6 +8,7 @@ module.exports = asyncHandler(async (req, res, next) => {
     let token = req.headers['x-access-token'] || req.headers['authorization'];
     // console.log(authHeader);
     token = token.replace(/^Bearer\s+/, "");
+    console.log(token);
 
     if (token) {
         jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
@@ -18,7 +19,7 @@ module.exports = asyncHandler(async (req, res, next) => {
                 });
             }
             console.log("before token");
-            res.json({success: "Token is verfied"});
+            // res.json({success: "Token is verfied"});
             console.log("after token");
             req.decoded = decoded;
             next();
