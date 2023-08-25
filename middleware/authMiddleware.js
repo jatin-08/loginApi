@@ -17,6 +17,7 @@ module.exports = asyncHandler(async (req, res, next) => {
                     message: 'Token is not valid'
                 });
             }
+            res.json({success: "Token is verfied"});
             req.decoded = decoded;
             next();
         });
