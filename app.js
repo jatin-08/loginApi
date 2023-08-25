@@ -17,9 +17,8 @@ app.use(bodyParse.json()) // it help to interpret the data in the body of an HTT
 
 const corsOptions = {
     origin: '*',
-    methods: ['GET','PUT','POST','DELETE'],
-    optionsSuccessStatus: 200,
-    allowedHeaders:['Content-Type']
+    methods: ['GET', 'PUT', 'POST', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 };
 
 app.use(cors(corsOptions));
@@ -45,6 +44,6 @@ app.listen(port, () => {
 
 // Default Route work as a middleware
 
-app.options('*', cors());
+// app.options('*', cors());
 
 app.use("/api/users", LoginAPIRoutes)
