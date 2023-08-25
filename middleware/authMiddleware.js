@@ -7,7 +7,7 @@ const loginModel = require("../model/LoginAPI");
 module.exports = asyncHandler(async (req, res, next) => {
     let token = req.headers['x-access-token'] || req.headers['authorization'];
     // console.log(authHeader);
-    if (token.startsWith("Bearer ")) {
+    if (token.startsWith("Bearer")) {
         token = token.split(" ")[1];
         console.log(token);
     }
