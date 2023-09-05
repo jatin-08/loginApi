@@ -1,4 +1,4 @@
-const asyncHandler = require("express-async-handler");
+// const asyncHandler = require("express-async-handler");
 
 const jwt = require("jsonwebtoken");
 
@@ -43,7 +43,7 @@ exports.specificDetails = asyncHandler(async (req, res) => {
 exports.signup = async (req, res) => {
     try {
         const { firstname, lastname, userEmail, userPassword, contactNumber } = req.body;
-        // console.log(req.body);
+        console.log(req.body);
         let seqid;
         const seq = await counter.findOneAndUpdate(
             { id: 'incval' },
