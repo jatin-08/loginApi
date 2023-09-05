@@ -42,6 +42,7 @@ exports.specificDetails = asyncHandler(async (req, res) => {
 
 exports.signup = async (req, res) => {
     try {
+        console.log("inside signup controller");
         const { firstname, lastname, userEmail, userPassword, contactNumber } = req.body;
         console.log(req.body);
         let seqid;
