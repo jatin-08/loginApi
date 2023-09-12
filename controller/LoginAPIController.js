@@ -154,7 +154,7 @@ exports.uploadFile = async (req, res) => {
             return res.status(404).json({ message: "File is required" });
         }
 
-        console.log(req.file);
+        // console.log(req.file);
 
         req.body.filename = req.file.filename;
         req.body.filepath = req.file.path;
