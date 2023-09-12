@@ -15,6 +15,8 @@ app.use(bodyParse.json()) // it help to interpret the data in the body of an HTT
 //     'http://127.0.0.1:5500',  // Add other allowed origins here
 // ];
 
+app.use(bodyParse.urlencoded({extended: true}));
+
 const corsOptions = {
     origin: '*',
     methods: ['GET', 'PUT', 'POST', 'DELETE'],

@@ -1,11 +1,10 @@
-const asyncHandler = require("express-async-handler");
-
 const jwt = require("jsonwebtoken");
-
+const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 
 const user = require("../model/LoginAPI");
 const counter = require("../model/CounterModel");
+const uploadfile = require("../model/UploadFile");
 
 // const authmiddleware = require("../middleware/authMiddleware");
 
@@ -144,5 +143,28 @@ exports.deleteUser = async (req, res) => {
         }
     } catch (err) {
         res.status(500).json({ error: err.message })
+    }
+}
+
+// uploadFile controller : This is used to upload the document
+
+exports.uploadFile = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(404).json({ message: "File is required" });
+        }
+
+        console.log(req.file);
+
+        req.body.filename = req.file.filename;
+        req.body.filepath = req.file.path;
+
+        const uploadFIle = new uploadfile(req.body);
+        const uploadedFIle = await uploadFIle.save();
+        res.status(200).json(uploadedFIle);
+
+    } catch (error) {
+        console.log("Error in Uploading the File", error);
+        res.status(500).json({ error: error.message });
     }
 }

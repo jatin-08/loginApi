@@ -2,6 +2,7 @@ const express = require("express");
 
 const userController = require("../controller/LoginAPIController");
 const authmiddleware = require("../middleware/authMiddleware");
+const uploadMiddleware = require("../middleware/uploadMiddleware");
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ router.get("/logout", authmiddleware, userController.logout);
 
 // Route for getting all the user
 
-router.get("/", authmiddleware,userController.getAllDetails);
+router.get("/", authmiddleware, userController.getAllDetails);
 
 // Route for getting specific data
 
@@ -35,6 +36,10 @@ router.put("/:id", authmiddleware, userController.updaterole);
 // Route for deleting the specific data
 
 router.delete("/:id", authmiddleware, userController.deleteUser);
+
+// Route for Uploading file 
+
+router.post("/uploadFile", uploadMiddleware.upload.single('file'), userController.uploadFile);
 
 
 module.exports = router;
