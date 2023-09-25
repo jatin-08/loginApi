@@ -159,9 +159,9 @@ exports.uploadFile = async (req, res) => {
         req.body.filename = req.file.filename;
         req.body.filepath = req.file.path;
 
-        const uploadFIle = new uploadfile(req.body);
-        const uploadedFIle = await uploadFIle.save();
-        res.status(200).json(uploadedFIle);
+        const uploadFile = new uploadfile(req.body);
+        const uploadedFile = await uploadFile.save();
+        res.status(200).send("File Uploaded Successfully");
 
     } catch (error) {
         console.log("Error in Uploading the File", error);
